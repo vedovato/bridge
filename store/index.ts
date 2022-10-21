@@ -1,21 +1,22 @@
-import { configureStore } from '@reduxjs/toolkit';
-// import { setupListeners } from '@reduxjs/toolkit/query';
-import { APIX } from '../services/pokemon';
-// import XXX from '../services';
+import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import APIX from "../services";
 
 const store = configureStore({
   reducer: {
-    // ...XXX.reducers,
-    [APIX.reducerPath]: APIX.reducer,
+    ...APIX.reducers,
   },
 
-  // devTools: true,
+  devTools: true,
 
   // getDefaultMiddleware().concat(APIX.middleware),
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(APIX.middleware),
-  // ...APIX.middlewares,
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware(),
+    ...APIX.middlewares,
+  ],
+
+  // getDefaultMiddleware().concat(APIX.middleware),
 });
 
-// setupListeners(store.dispatch);
+setupListeners(store.dispatch);
 export default store;
