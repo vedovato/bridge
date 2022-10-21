@@ -1,21 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import APIX from "../services";
+import services from "../services";
 
 const store = configureStore({
-  reducer: {
-    ...APIX.reducers,
-  },
-
   devTools: true,
-
-  // getDefaultMiddleware().concat(APIX.middleware),
+  reducer: services.reducers,
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
-    ...APIX.middlewares,
+    ...services.middlewares,
   ],
-
-  // getDefaultMiddleware().concat(APIX.middleware),
 });
 
 setupListeners(store.dispatch);
